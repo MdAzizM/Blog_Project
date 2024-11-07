@@ -6,8 +6,10 @@ const BlogRoutes = require ('./Routes/BlogRoutes');
 //MIDDLEWARES
 const app = express();
 
+
 //DATABASE conncetion 
-mongoose.connect(process.env.DB_STRING)
+try {
+  mongoose.connect(process.env.DB_STRING)
   .then(() => {console.log('Connected to MongoDB')
     try{
         console.log("trying to connect to port...");
@@ -19,9 +21,12 @@ mongoose.connect(process.env.DB_STRING)
     }
   })
   .catch(err => console.error('Could not connect to MongoDB:', err));
+}catch (err){
+  console.log(err);
+}
 
 //ROUTES
-app.use('Blog',BlogRoutes);
+app.use('/Blog',BlogRoutes);
 //not found
 app.get('*',(req, res) => {
     res.status(404).send('not found');
