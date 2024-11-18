@@ -1,11 +1,17 @@
 require('dotenv').config();
 const express = require ('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 const BlogRoutes = require ('./Routes/BlogRoutes');
+const UserRoutes = require('./Routes/UserRoutes');
+
 
 //MIDDLEWARES
 const app = express();
 
+app.use(morgan('dev'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 //DATABASE conncetion 
 try {
@@ -26,7 +32,8 @@ try {
 }
 
 //ROUTES
-app.use('/Blog',BlogRoutes);
+app.use('/Blog', BlogRoutes);
+app.use('/User', UserRoutes);
 //not found
 app.get('*',(req, res) => {
     res.status(404).send('not found');

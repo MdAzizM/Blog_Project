@@ -9,7 +9,7 @@ route.get('/',blogController.getAllBlogs);
 
 route.get('/:id',blogController.getBlog);
 
-route.post('/Create', blogController.createBlog);
+route.post('/', blogController.createBlog);
 
 route.patch('/:id', blogController.updateBlog);
 
